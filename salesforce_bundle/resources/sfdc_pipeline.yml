@@ -1,0 +1,43 @@
+variables:
+  dest_catalog:
+    default: main
+  dest_schema:
+    default: default
+
+# The main pipeline for sfdc_dab
+resources:
+  pipelines:
+    pipeline_sfdc:
+      name: salesforce_pipeline
+      catalog: ${var.dest_catalog}
+      target: ${var.dest_schema}
+      ingestion_definition:
+        connection_name: salesforce_greg
+        objects:
+          # An array of objects to ingest from Salesforce. This example
+          # ingests the AccountShare, AccountPartner, and ApexPage objects.
+          - table:
+              source_schema: objects
+              source_table: AccountShare
+              destination_catalog: ${var.dest_catalog}
+              destination_schema: ${var.dest_schema}
+          - table:
+              source_schema: objects
+              source_table: AccountPartner
+              destination_catalog: ${var.dest_catalog}
+              destination_schema: ${var.dest_schema}
+          - table:
+              source_schema: objects
+              source_table: ApexPage
+              destination_catalog: ${var.dest_catalog}
+              destination_schema: ${var.dest_schema}
+          - table:
+              source_schema: objects
+              source_table: Contact
+              destination_catalog: ${var.dest_catalog}
+              destination_schema: ${var.dest_schema}
+          - table:
+              source_schema: objects
+              source_table: Account
+              destination_catalog: ${var.dest_catalog}
+              destination_schema: ${var.dest_schema}

@@ -1,0 +1,20 @@
+resources:
+  jobs:
+    sfdc_dab_job:
+      name: sfdc_dab_job
+
+      trigger:
+        # Run this job every day, exactly one day from the last run
+        # See https://docs.databricks.com/api/workspace/jobs/create#trigger
+        periodic:
+          interval: 1
+          unit: DAYS
+
+      email_notifications:
+        on_failure:
+          - gregsh@outlook.com
+
+      tasks:
+        - task_key: refresh_pipeline
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_sfdc.id}
